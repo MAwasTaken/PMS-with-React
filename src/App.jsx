@@ -1,18 +1,21 @@
 // react
-import React from 'react'
+import React from "react";
 
 // packages
 
 // styles
 
 // components
+import Sidebar from "./Components/Sidebar/Sidebar";
 
 // app
 function App() {
-  return (
-    <div>App</div>
-  )
+	return (
+		<>
+			<Sidebar />
+		</>
+	);
 }
 
 // exports
-export default App
+export default App;
