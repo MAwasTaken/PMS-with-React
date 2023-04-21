@@ -1,5 +1,6 @@
 // react
 import React from "react";
+import { Link } from "react-router-dom";
 
 // packages
 import { AiOutlineHome } from "react-icons/ai";
@@ -20,40 +21,40 @@ function Sidebar() {
 			<h1 className='sidebar-title'>به داشبورد خود خوش آمدید</h1>
 			<ul className='sidebar-links'>
 				<li>
-					<a href='#'>
+					<Link href='#' to="/products">
 						<AiOutlineHome className='icon' />
 						صفحه اصلی
-					</a>
+					</Link>
 				</li>
 				<li className='active'>
-					<a href='#'>
+					<Link href='#' to="/products">
 						<MdProductionQuantityLimits className='icon' />
 						محصولات
-					</a>
+					</Link>
 				</li>
 				<li>
-					<a href='#'>
+					<Link href='#' to="/comments">
 						<BiCommentDetail className='icon' />
 						کامنت ها
-					</a>
+					</Link>
 				</li>
 				<li>
-					<a href='#'>
+					<Link href='#' to="/users">
 						<FiUsers className='icon' />
 						کاربران
-					</a>
+					</Link>
 				</li>
 				<li>
-					<a href='#'>
+					<Link href='#' to="/orders">
 						<BsBagCheck className='icon' />
 						سفارشات
-					</a>
+					</Link>
 				</li>
 				<li>
-					<a href='#'>
+					<Link href='#' to="/offs">
 						<BiDollar className='icon' />
 						تخفیف ها
-					</a>
+					</Link>
 				</li>
 			</ul>
 		</div>
