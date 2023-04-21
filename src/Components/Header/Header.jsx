@@ -20,18 +20,18 @@ function Header() {
 					<h1>مهدی عبداللهی</h1>
 					<h3>برنامه نویس فرانت اند</h3>
 				</div>
-				<div className='header-left-section'>
-					<div className='search-box'>
-						<input type='text' placeholder='جستجو بکنید...' />
-						<button>جستجو</button>
-					</div>
-					<button className='header-left-icon'>
-						<AiOutlineBell />
-					</button>
-					<button className='header-left-icon'>
-						<BsBrightnessHigh />
-					</button>
+			</div>
+			<div className='header-left-section'>
+				<div className='search-box'>
+					<input type='text' placeholder='جستجو بکنید...' />
+					<button>جستجو</button>
 				</div>
+				<button className='header-left-icon'>
+					<AiOutlineBell />
+				</button>
+				<button className='header-left-icon'>
+					<BsBrightnessHigh />
+				</button>
 			</div>
 		</div>
 	);
