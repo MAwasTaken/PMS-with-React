@@ -2,16 +2,16 @@
 import React from "react";
 
 // packages
-
-// styles
-import "./Sidebar.css";
-
-// components
 import { AiOutlineHome } from "react-icons/ai";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { BiCommentDetail, BiDollar } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
 import { BsBagCheck } from "react-icons/bs";
+
+// styles
+import "./Sidebar.css";
+
+// components
 
 // sidebar
 function Sidebar() {
