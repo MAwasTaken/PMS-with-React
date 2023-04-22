@@ -6,10 +6,15 @@ import React from "react";
 // styles
 
 // components
+import Errorbox from "../Errorbox/Errorbox";
 
 // offs
 function Offs() {
-	return <div>Offs</div>;
+	return (
+		<div>
+			<Errorbox msg='هیچ کد تخفیفی یافت نشد!' />
+		</div>
+	);
 }
 
 // exports

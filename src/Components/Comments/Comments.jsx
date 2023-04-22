@@ -6,10 +6,15 @@ import React from "react";
 // styles
 
 // components
+import Errorbox from "../Errorbox/Errorbox";
 
 // comments
 function Comments() {
-	return <div>Comments</div>;
+	return (
+		<div>
+			<Errorbox msg='هیچ کامنتی یافت نشد!' />
+		</div>
+	);
 }
 
 // exports

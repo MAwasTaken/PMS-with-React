@@ -12,7 +12,7 @@ import "./custom.css";
 import App from "./App";
 
 // main
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.querySelector("body")).render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<App />

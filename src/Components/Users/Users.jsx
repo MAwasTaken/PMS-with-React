@@ -6,10 +6,15 @@ import React from "react";
 // styles
 
 // components
+import Errorbox from "../Errorbox/Errorbox";
 
 // users
 function Users() {
-	return <div>Users</div>;
+	return (
+		<div>
+			<Errorbox msg='هیچ کاربری یافت نشد!'/>
+		</div>
+	);
 }
 
 // exports

@@ -6,10 +6,15 @@ import React from "react";
 // styles
 
 // components
+import Errorbox from "../Errorbox/Errorbox";
 
 // products
 function Products() {
-  return <div>Products</div>;
+	return (
+		<div>
+			<Errorbox msg='هیج محصولی یافت نشد!' />
+		</div>
+	);
 }
 
 // exports

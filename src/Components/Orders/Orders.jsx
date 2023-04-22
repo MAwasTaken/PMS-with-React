@@ -6,10 +6,15 @@ import React from "react";
 // styles
 
 // components
+import Errorbox from "../Errorbox/Errorbox";
 
 // orders
 function Orders() {
-	return <div>Orders</div>;
+	return (
+		<div>
+			<Errorbox msg='هیچ سفارشی یافت نشد!' />
+		</div>
+	);
 }
 
 // exports
