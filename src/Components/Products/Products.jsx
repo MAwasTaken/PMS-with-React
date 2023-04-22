@@ -7,13 +7,15 @@ import React from "react";
 
 // components
 import Errorbox from "../Errorbox/Errorbox";
+import AddNewProduct from "../AddNewProduct/AddNewProduct";
 
 // products
 function Products() {
 	return (
-		<div>
+		<>
 			<Errorbox msg='هیج محصولی یافت نشد!' />
-		</div>
+			<AddNewProduct />
+		</>
 	);
 }
 
