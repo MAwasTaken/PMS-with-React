@@ -12,7 +12,7 @@ import { BsBag, BsCardImage } from "react-icons/bs";
 import { GiRank3 } from "react-icons/gi";
 import { MdOutlineSell } from "react-icons/md";
 
-// comments
+// add new product
 function AddNewProduct() {
 	return (
 		<div className='products-main'>

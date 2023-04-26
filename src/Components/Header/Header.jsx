@@ -15,7 +15,7 @@ function Header() {
 	return (
 		<div className='header'>
 			<div className='admin-profile'>
-				<img src='./img/4.jpg' alt='admin profile' />
+				<img src='./img/sasan.avif' alt='admin profile' />
 				<div>
 					<h1>مهدی عبداللهی</h1>
 					<h3>برنامه نویس فرانت اند</h3>
