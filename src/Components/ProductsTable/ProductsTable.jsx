@@ -4,6 +4,7 @@ import React from "react";
 // packages
 
 // styles
+import './ProductsTable.css'
 
 // components
 
@@ -17,7 +18,7 @@ function ProductsTable() {
 				<th>قیمت</th>
 				<th>موجودی</th>
 			</tr>
-			<tr>
+			<tr className="products-table-tr">
 				<td>
 					<img src='/img/oil.jpeg' alt='oil image' className='products-table-img' />
 				</td>
