@@ -7,6 +7,7 @@ import Offs from "./Components/Offs/Offs";
 
 // routes
 const routes = [
+	{ path: "/", element: <Products /> },
 	{ path: "/products", element: <Products /> },
 	{ path: "/comments", element: <Comments /> },
 	{ path: "/users", element: <Users /> },
