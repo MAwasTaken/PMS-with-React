@@ -19,7 +19,9 @@ function DeleteModal({ submitAction, cancelAction }) {
 					<button className='delete-btn delete-modal-accept-btn' onClick={() => submitAction()}>
 						بله
 					</button>
-					<button className='delete-btn delete-modal-reject-btn' onClick={()=> cancelAction()}>خیر</button>
+					<button className='delete-btn delete-modal-reject-btn' onClick={() => cancelAction()}>
+						خیر
+					</button>
 				</div>
 			</div>
 		</div>,
