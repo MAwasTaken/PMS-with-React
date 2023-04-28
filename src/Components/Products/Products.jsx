@@ -9,7 +9,6 @@ import React from "react";
 import Errorbox from "../Errorbox/Errorbox";
 import AddNewProduct from "../AddNewProduct/AddNewProduct";
 import ProductsTable from "../ProductsTable/ProductsTable";
-import DetailsModal from "../DetailsModal/DetailsModal";
 
 // products
 function Products() {
@@ -18,7 +17,6 @@ function Products() {
 			<Errorbox msg='هیج محصولی یافت نشد!' />
 			<AddNewProduct />
 			<ProductsTable />
-			<DetailsModal />
 		</>
 	);
 }
