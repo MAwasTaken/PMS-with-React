@@ -21,6 +21,7 @@ function DetailsModal({ onHide }) {
 		return () => window.removeEventListener("keydown", checkKey);
 	});
 
+  // jsx
 	return (
 		<div className=' modal-parent active'>
 			<div className='details-modal'>

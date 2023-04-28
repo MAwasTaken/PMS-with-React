@@ -17,6 +17,7 @@ function App() {
 	// router
 	const router = useRoutes(routes);
 
+	// jsx
 	return (
 		<>
 			<Sidebar />

@@ -9,12 +9,14 @@ import "./ProductsTable.css";
 // components
 import DeleteModal from "../DeleteModal/DeleteModal";
 import DetailsModal from "../DetailsModal/DetailsModal";
+import EditModal from "../EditModal/EditModal";
 
 // products table
 function ProductsTable() {
 	// states
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
+	const [isShowEditModal, setIsShowEditModal] = useState(false);
 
 	// functions
 	const DeleteModalCancelAction = () => {
@@ -32,9 +34,16 @@ function ProductsTable() {
 	const closeDetailsModal = () => {
 		setIsShowDetailsModal(false);
 
-    console.log('مدال جزئیات بسته شد');
+		console.log("مدال جزئیات بسته شد");
 	};
 
+	const updateProductInfos = (event) => {
+		event.preventDefault();
+		console.log("محصول ویرایش شد");
+		setIsShowEditModal(false);
+	};
+
+	// jsx
 	return (
 		<>
 			<table className='products-table'>
@@ -61,13 +70,16 @@ function ProductsTable() {
 							<button className='products-table-btn' onClick={() => setIsShowDeleteModal(true)}>
 								حذف
 							</button>
-							<button className='products-table-btn'>ویرایش</button>
+							<button className='products-table-btn' onClick={() => setIsShowEditModal(true)}>
+								ویرایش
+							</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			{isShowDeleteModal && <DeleteModal submitAction={DeleteModalSubmitAction} cancelAction={DeleteModalCancelAction} />}
 			{isShowDetailsModal && <DetailsModal onHide={closeDetailsModal} />}
+			{isShowEditModal && <EditModal onClose={() => setIsShowEditModal(false)} onSubmit={updateProductInfos} />}
 		</>
 	);
 }

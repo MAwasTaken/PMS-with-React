@@ -12,6 +12,7 @@ import ProductsTable from "../ProductsTable/ProductsTable";
 
 // products
 function Products() {
+  // jsx
 	return (
 		<>
 			<Errorbox msg='هیج محصولی یافت نشد!' />

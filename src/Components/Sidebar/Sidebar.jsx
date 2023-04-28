@@ -16,6 +16,7 @@ import "./Sidebar.css";
 
 // sidebar
 function Sidebar() {
+  // jsx
 	return (
 		<div className='sidebar'>
 			<h1 className='sidebar-title'>به داشبورد خود خوش آمدید</h1>

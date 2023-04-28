@@ -10,6 +10,7 @@ import "./Errorbox.css";
 
 // error box
 function Errorbox({ msg }) {
+  // jsx
 	return (
 		<div className="cms-empty-error">
 			<h1>{msg}</h1>

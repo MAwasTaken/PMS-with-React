@@ -11,6 +11,7 @@ import "./DeleteModal.css";
 
 // delete modal
 function DeleteModal({ submitAction, cancelAction }) {
+  // jsx
 	return createPortal(
 		<div className='modal-parent active'>
 			<div className='delete-modal'>

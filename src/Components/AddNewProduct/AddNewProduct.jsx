@@ -14,6 +14,7 @@ import { MdOutlineSell } from "react-icons/md";
 
 // add new product
 function AddNewProduct() {
+  // jsx
 	return (
 		<div className='products-main'>
 			<h1 className='products-title'>افزودن محصول جدید</h1>
