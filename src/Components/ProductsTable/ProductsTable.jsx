@@ -1,7 +1,8 @@
 // react
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
 
 // packages
+import { AiOutlineDollarCircle } from "react-icons/ai";
 
 // styles
 import "./ProductsTable.css";
@@ -79,7 +80,34 @@ function ProductsTable() {
 			</table>
 			{isShowDeleteModal && <DeleteModal submitAction={DeleteModalSubmitAction} cancelAction={DeleteModalCancelAction} />}
 			{isShowDetailsModal && <DetailsModal onHide={closeDetailsModal} />}
-			{isShowEditModal && <EditModal onClose={() => setIsShowEditModal(false)} onSubmit={updateProductInfos} />}
+			{isShowEditModal && (
+				<EditModal onClose={() => setIsShowEditModal(false)} onSubmit={updateProductInfos}>
+					<div className='edit-products-form-group p'>
+						<span>
+							<AiOutlineDollarCircle />
+						</span>
+						<input type='text' placeholder='عنوان جدید را وارد کنید' className='edit-product-input' />
+					</div>
+					<div className='edit-products-form-group p'>
+						<span>
+							<AiOutlineDollarCircle />
+						</span>
+						<input type='text' placeholder='عنوان جدید را وارد کنید' className='edit-product-input' />
+					</div>
+					<div className='edit-products-form-group p'>
+						<span>
+							<AiOutlineDollarCircle />
+						</span>
+						<input type='text' placeholder='عنوان جدید را وارد کنید' className='edit-product-input' />
+					</div>
+					<div className='edit-products-form-group p'>
+						<span>
+							<AiOutlineDollarCircle />
+						</span>
+						<input type='text' placeholder='عنوان جدید را وارد کنید' className='edit-product-input' />
+					</div>
+				</EditModal>
+			)}
 		</>
 	);
 }

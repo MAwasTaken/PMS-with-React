@@ -1,5 +1,5 @@
 // react
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 
 // packages
 
@@ -9,7 +9,7 @@ import "./EditModal.css";
 // components
 
 // edit modal
-function EditModal({ childeren, onClose, onSubmit }) {
+function EditModal({ children, onClose, onSubmit }) {
 	// side effects
 	useEffect(() => {
 		const checkKey = (event) => {
@@ -21,13 +21,15 @@ function EditModal({ childeren, onClose, onSubmit }) {
 		return () => window.removeEventListener("keydown", checkKey);
 	});
 
-  // jsx
+	// jsx
 	return (
 		<div className='modal-parent active'>
 			<form className='edit-modal-form'>
 				<h1>اطلاعات جدید را وارد نمایید</h1>
-				{childeren}
-				<button className='edit-form-submit' onClick={onSubmit}>ثبت اطلاعات جدید</button>
+				{children}
+				<button className='edit-form-submit' onClick={onSubmit}>
+					ثبت اطلاعات جدید
+				</button>
 			</form>
 		</div>
 	);
