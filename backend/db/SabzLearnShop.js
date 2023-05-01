@@ -4,7 +4,7 @@ const SabzlearnShopDB = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "sabzlearn_shop",
+  database: "CMS-with-react",
 });
 
 module.exports = SabzlearnShopDB;

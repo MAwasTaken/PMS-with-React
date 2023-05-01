@@ -1,5 +1,5 @@
 // react
-import React, { Children, useState } from "react";
+import React, { Children, useEffect, useState } from "react";
 
 // packages
 import { AiOutlineDollarCircle } from "react-icons/ai";
@@ -18,6 +18,14 @@ function ProductsTable() {
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
+	const [allProducts, setAllProducts] = useState([]);
+
+	// side effects
+	useEffect(() => {
+		fetch(`http://localhost:3000/api/products`)
+			.then((res) => res.json())
+			.then((products) => setAllProducts(products));
+	}, []);
 
 	// functions
 	const DeleteModalCancelAction = () => {
@@ -56,27 +64,29 @@ function ProductsTable() {
 						<th>موجودی</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr className='products-table-tr'>
-						<td>
-							<img src='/img/oil.jpeg' alt='oil image' className='products-table-img' />
-						</td>
-						<td>روغن سرخ کردنی</td>
-						<td>92000 تومان</td>
-						<td>82</td>
-						<td>
-							<button className='products-table-btn' onClick={() => setIsShowDetailsModal(true)}>
-								جزئیات
-							</button>
-							<button className='products-table-btn' onClick={() => setIsShowDeleteModal(true)}>
-								حذف
-							</button>
-							<button className='products-table-btn' onClick={() => setIsShowEditModal(true)}>
-								ویرایش
-							</button>
-						</td>
-					</tr>
-				</tbody>
+				{allProducts.map((product) => (
+					<tbody key={product.id}>
+						<tr className='products-table-tr'>
+							<td>
+								<img src={product.img} alt='oil image' className='products-table-img' />
+							</td>
+							<td>{product.title}</td>
+							<td>{product.price} تومان</td>
+							<td>{product.sale}</td>
+							<td>
+								<button className='products-table-btn' onClick={() => setIsShowDetailsModal(true)}>
+									جزئیات
+								</button>
+								<button className='products-table-btn' onClick={() => setIsShowDeleteModal(true)}>
+									حذف
+								</button>
+								<button className='products-table-btn' onClick={() => setIsShowEditModal(true)}>
+									ویرایش
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				))}
 			</table>
 			{isShowDeleteModal && <DeleteModal submitAction={DeleteModalSubmitAction} cancelAction={DeleteModalCancelAction} />}
 			{isShowDetailsModal && <DetailsModal onHide={closeDetailsModal} />}
