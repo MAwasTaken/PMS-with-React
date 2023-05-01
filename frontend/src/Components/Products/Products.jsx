@@ -15,7 +15,6 @@ function Products() {
   // jsx
 	return (
 		<>
-			<Errorbox msg='هیج محصولی یافت نشد!' />
 			<AddNewProduct />
 			<ProductsTable />
 		</>
