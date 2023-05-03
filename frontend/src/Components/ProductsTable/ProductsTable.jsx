@@ -3,9 +3,11 @@ import React, { Children, useEffect, useState } from "react";
 
 // packages
 import { AiOutlineDollarCircle } from "react-icons/ai";
+import { ToastContainer, toast } from "react-toastify";
 
 // styles
 import "./ProductsTable.css";
+import "react-toastify/dist/ReactToastify.css";
 
 // components
 import DeleteModal from "../DeleteModal/DeleteModal";
@@ -20,11 +22,17 @@ function ProductsTable() {
 	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
 	const [allProducts, setAllProducts] = useState([]);
+	const [productID, setProductID] = useState(null);
 
 	// side effects
 	useEffect(() => {
-		fetch(`http://localhost:3000/api/products`).then((res) => res.json())
-		.then((products) => setAllProducts(products));
+		fetch(`http://localhost:3000/api/products`)
+			.then((res) => res.json())
+			.then((products) => setAllProducts(products));
+	}, []);
+
+	useEffect(() => {
+		getAllProducts();
 	}, []);
 
 	// functions
@@ -35,9 +43,15 @@ function ProductsTable() {
 	};
 
 	const DeleteModalSubmitAction = () => {
-		console.log("مدال تایید شد");
-
-		setIsShowDeleteModal(false);
+		fetch(`http://localhost:3000/api/products/${productID}`, {
+			method: "DELETE",
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				setIsShowDeleteModal(false);
+				showSuccessToast("محصول با موفقیت حذف شد!");
+				getAllProducts();
+			});
 	};
 
 	const closeDetailsModal = () => {
@@ -51,6 +65,24 @@ function ProductsTable() {
 		console.log("محصول ویرایش شد");
 		setIsShowEditModal(false);
 	};
+
+	const getAllProducts = () => {
+		fetch(`http://localhost:3000/api/products`)
+			.then((res) => res.json())
+			.then((products) => setAllProducts(products));
+	};
+
+	const showSuccessToast = (msg) =>
+		toast.success(msg, {
+			position: "top-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: "light",
+		});
 
 	// jsx
 	return (
@@ -78,7 +110,12 @@ function ProductsTable() {
 									<button className='products-table-btn' onClick={() => setIsShowDetailsModal(true)}>
 										جزئیات
 									</button>
-									<button className='products-table-btn' onClick={() => setIsShowDeleteModal(true)}>
+									<button
+										className='products-table-btn'
+										onClick={() => {
+											setProductID(product.id);
+											setIsShowDeleteModal(true);
+										}}>
 										حذف
 									</button>
 									<button className='products-table-btn' onClick={() => setIsShowEditModal(true)}>
@@ -122,6 +159,7 @@ function ProductsTable() {
 					</div>
 				</EditModal>
 			)}
+			<ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl pauseOnFocusLoss draggable pauseOnHover theme='light' />
 		</>
 	);
 }
