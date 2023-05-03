@@ -23,6 +23,7 @@ function ProductsTable() {
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
 	const [allProducts, setAllProducts] = useState([]);
 	const [productID, setProductID] = useState(null);
+	const [mainProductInfos, setMainProductInfos] = useState({});
 
 	// side effects
 	useEffect(() => {
@@ -107,7 +108,12 @@ function ProductsTable() {
 								<td>{product.price} تومان</td>
 								<td>{product.sale}</td>
 								<td>
-									<button className='products-table-btn' onClick={() => setIsShowDetailsModal(true)}>
+									<button
+										className='products-table-btn'
+										onClick={() => {
+											setIsShowDetailsModal(true);
+											setMainProductInfos(product);
+										}}>
 										جزئیات
 									</button>
 									<button
@@ -130,7 +136,26 @@ function ProductsTable() {
 				<Errorbox msg='هیج محصولی یافت نشد!' />
 			)}
 			{isShowDeleteModal && <DeleteModal submitAction={DeleteModalSubmitAction} cancelAction={DeleteModalCancelAction} />}
-			{isShowDetailsModal && <DetailsModal onHide={closeDetailsModal} />}
+			{isShowDetailsModal && (
+				<DetailsModal onHide={closeDetailsModal}>
+					<table className='cms-table'>
+						<thead>
+							<tr>
+								<th>محبوبیت</th>
+								<th>فروش</th>
+								<th>رنگبندی</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{mainProductInfos.popularity}</td>
+								<td>{mainProductInfos.sale.toLocaleString()}</td>
+								<td>{mainProductInfos.colors}</td>
+							</tr>
+						</tbody>
+					</table>
+				</DetailsModal>
+			)}
 			{isShowEditModal && (
 				<EditModal onClose={() => setIsShowEditModal(false)} onSubmit={updateProductInfos}>
 					<div className='edit-products-form-group p'>
