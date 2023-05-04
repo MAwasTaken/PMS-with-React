@@ -34,3 +34,9 @@
 .cms-table th, .cms-table td {
   padding: 20px;
 }
+
+.cms-main {
+  margin-top: 60px;
+  padding: 20px;
+  border-radius: 25px;
+}
