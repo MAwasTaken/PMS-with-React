@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 
 // packages
+import { ToastContainer } from "react-toastify";
 
 // styles
 import "./AddNewProduct.css";
@@ -13,7 +14,7 @@ import { GiRank3 } from "react-icons/gi";
 import { MdOutlineSell } from "react-icons/md";
 
 // add new product
-function AddNewProduct() {
+function AddNewProduct({ getAllProducts, showSuccessToast }) {
 	// states
 	const [newProductTitle, setNewProductTitle] = useState("");
 	const [newProductPrice, setNewProductPrice] = useState("");
@@ -27,17 +28,15 @@ function AddNewProduct() {
 	const addNewProduct = (event) => {
 		event.preventDefault();
 
-    const newProductInfos = {
-      title: newProductTitle,
-      price: newProductPrice,
-      count: newProductCount,
-      img: newProductImg,
-      popularity: newProductPopularity,
-      sale: newProductSale,
-      colors: newProductColors,
-    };
-
-		console.log(typeof newProductCount);
+		const newProductInfos = {
+			title: newProductTitle,
+			price: newProductPrice,
+			count: newProductCount,
+			img: newProductImg,
+			popularity: newProductPopularity,
+			sale: newProductSale,
+			colors: newProductColors,
+		};
 
 		fetch(`http://localhost:3000/api/products`, {
 			method: "POST",
@@ -45,8 +44,21 @@ function AddNewProduct() {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(newProductInfos),
-		})
-			.then((res) => console.log(res))
+		}).then((res) => {
+      showSuccessToast('محصول با موفقیت اضافه شد!')
+			getAllProducts();
+			emptyInputs();
+		});
+	};
+
+	const emptyInputs = () => {
+		setNewProductTitle("");
+		setNewProductPrice("");
+		setNewProductCount("");
+		setNewProductImg("");
+		setNewProductPopularity("");
+		setNewProductSale("");
+		setNewProductColors("");
 	};
 
 	// jsx
@@ -88,6 +100,7 @@ function AddNewProduct() {
 					ثبت محصول
 				</button>
 			</form>
+			<ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl pauseOnFocusLoss draggable pauseOnHover theme='light' />
 		</div>
 	);
 }

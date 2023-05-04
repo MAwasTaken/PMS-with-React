@@ -2,8 +2,7 @@
 import React, { Children, useEffect, useState } from "react";
 
 // packages
-import { AiOutlineDollarCircle } from "react-icons/ai";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { BiDollar, BiRename, BiCategoryAlt } from "react-icons/bi";
 import { BsBag, BsCardImage } from "react-icons/bs";
 import { GiRank3 } from "react-icons/gi";
@@ -20,12 +19,11 @@ import EditModal from "../EditModal/EditModal";
 import Errorbox from "../Errorbox/Errorbox";
 
 // products table
-function ProductsTable() {
+function ProductsTable({ allProducts, getAllProducts, showSuccessToast }) {
 	// states
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
-	const [allProducts, setAllProducts] = useState([]);
 	const [productID, setProductID] = useState(null);
 	const [mainProductInfos, setMainProductInfos] = useState({});
 	const [productNewTitle, setProductNewTitle] = useState("");
@@ -37,12 +35,6 @@ function ProductsTable() {
 	const [productNewColors, setProductNewColors] = useState("");
 
 	// side effects
-	useEffect(() => {
-		fetch(`http://localhost:3000/api/products`)
-			.then((res) => res.json())
-			.then((products) => setAllProducts(products));
-	}, []);
-
 	useEffect(() => {
 		getAllProducts();
 	}, []);
@@ -94,29 +86,11 @@ function ProductsTable() {
 		})
 			.then((res) => res.json())
 			.then((result) => {
-        showSuccessToast("محصول با موفقیت ویرایش شد!");
+				showSuccessToast("محصول با موفقیت ویرایش شد!");
 				setIsShowEditModal(false);
 				getAllProducts();
 			});
 	};
-
-	const getAllProducts = () => {
-		fetch(`http://localhost:3000/api/products`)
-			.then((res) => res.json())
-			.then((products) => setAllProducts(products));
-	};
-
-	const showSuccessToast = (msg) =>
-		toast.success(msg, {
-			position: "top-right",
-			autoClose: 5000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-			theme: "light",
-		});
 
 	// jsx
 	return (
@@ -195,7 +169,7 @@ function ProductsTable() {
 						</thead>
 						<tbody>
 							<tr>
-								<td>{mainProductInfos.popularity}</td>
+								<td>{mainProductInfos.popularity}%</td>
 								<td>{mainProductInfos.sale.toLocaleString()}</td>
 								<td>{mainProductInfos.colors}</td>
 							</tr>
