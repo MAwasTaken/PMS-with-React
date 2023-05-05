@@ -8,11 +8,14 @@ import "./Comments.css";
 
 // components
 import Errorbox from "../Errorbox/Errorbox";
+import DetailsModal from "../DetailsModal/DetailsModal";
 
 // comments
 function Comments() {
 	// states
 	const [allComments, setAllComments] = useState([]);
+	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
+	const [mainCommentBody, setMainCommentBody] = useState("");
 
 	// side effects
 	useEffect(() => {
@@ -20,6 +23,9 @@ function Comments() {
 			.then((res) => res.json())
 			.then((comments) => setAllComments(comments));
 	}, []);
+
+	// functions
+	const closeDetailModal = () => setIsShowDetailsModal(false);
 
 	// jsx
 	return (
@@ -41,7 +47,13 @@ function Comments() {
 								<td>{comment.userID}</td>
 								<td>{comment.productID}</td>
 								<td>
-									<button>دیدن متن</button>
+									<button
+										onClick={() => {
+											setIsShowDetailsModal(true);
+											setMainCommentBody(comment.body);
+										}}>
+										دیدن متن
+									</button>
 								</td>
 								<td>{comment.date}</td>
 								<td>{comment.hour}</td>
@@ -57,6 +69,12 @@ function Comments() {
 				</table>
 			) : (
 				<Errorbox msg='هیچ کامنتی یافت نشد!' />
+			)}
+			{isShowDetailsModal && (
+				<DetailsModal onHide={closeDetailModal}>
+					<p className='text-modal'>{mainCommentBody}</p>
+          <button className="text-modal-close-btn" onClick={()=> closeDetailModal()}>بستن</button>
+				</DetailsModal>
 			)}
 		</div>
 	);
