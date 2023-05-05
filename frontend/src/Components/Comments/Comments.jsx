@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 // packages
+import { ToastContainer, toast } from "react-toastify";
 
 // styles
 import "./Comments.css";
@@ -9,6 +10,7 @@ import "./Comments.css";
 // components
 import Errorbox from "../Errorbox/Errorbox";
 import DetailsModal from "../DetailsModal/DetailsModal";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 // comments
 function Comments() {
@@ -16,6 +18,7 @@ function Comments() {
 	const [allComments, setAllComments] = useState([]);
 	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
 	const [mainCommentBody, setMainCommentBody] = useState("");
+	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 
 	// side effects
 	useEffect(() => {
@@ -25,7 +28,28 @@ function Comments() {
 	}, []);
 
 	// functions
+	const showSuccessToast = (msg) =>
+		toast.success(msg, {
+			position: "top-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: "light",
+		});
+
 	const closeDetailModal = () => setIsShowDetailsModal(false);
+
+	const closeDeleteModal = () => setIsShowDeleteModal(false);
+
+	const deleteComment = () => {
+		console.log("کامنت با موفقیا شیب");
+
+		showSuccessToast("کامنت با موفقیت حذف شد!");
+		closeDeleteModal();
+	};
 
 	// jsx
 	return (
@@ -58,7 +82,7 @@ function Comments() {
 								<td>{comment.date}</td>
 								<td>{comment.hour}</td>
 								<td>
-									<button>حذف</button>
+									<button onClick={() => setIsShowDeleteModal(true)}>حذف</button>
 									<button>ویرایش</button>
 									<button>پاسخ</button>
 									<button>تایید</button>
@@ -73,9 +97,13 @@ function Comments() {
 			{isShowDetailsModal && (
 				<DetailsModal onHide={closeDetailModal}>
 					<p className='text-modal'>{mainCommentBody}</p>
-          <button className="text-modal-close-btn" onClick={()=> closeDetailModal()}>بستن</button>
+					<button className='text-modal-close-btn' onClick={() => closeDetailModal()}>
+						بستن
+					</button>
 				</DetailsModal>
 			)}
+			{isShowDeleteModal && <DeleteModal cancelAction={closeDeleteModal} submitAction={deleteComment}></DeleteModal>}
+			<ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl pauseOnFocusLoss draggable pauseOnHover theme='light' />
 		</div>
 	);
 }
