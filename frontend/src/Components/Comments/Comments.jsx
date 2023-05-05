@@ -19,13 +19,10 @@ function Comments() {
 	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
 	const [mainCommentBody, setMainCommentBody] = useState("");
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+	const [commentID, setCommentID] = useState(null);
 
 	// side effects
-	useEffect(() => {
-		fetch(`http://localhost:3000/api/comments`)
-			.then((res) => res.json())
-			.then((comments) => setAllComments(comments));
-	}, []);
+	useEffect(() => getAllcomments(), []);
 
 	// functions
 	const showSuccessToast = (msg) =>
@@ -45,10 +42,21 @@ function Comments() {
 	const closeDeleteModal = () => setIsShowDeleteModal(false);
 
 	const deleteComment = () => {
-		console.log("کامنت با موفقیا شیب");
+		fetch(`http://localhost:3000/api/comments/${commentID}`, {
+			method: "DELETE",
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				showSuccessToast("کامنت با موفقیت حذف شد!");
+				getAllcomments();
+				closeDeleteModal();
+			});
+	};
 
-		showSuccessToast("کامنت با موفقیت حذف شد!");
-		closeDeleteModal();
+	const getAllcomments = () => {
+		fetch(`http://localhost:3000/api/comments`)
+			.then((res) => res.json())
+			.then((comments) => setAllComments(comments));
 	};
 
 	// jsx
@@ -82,7 +90,13 @@ function Comments() {
 								<td>{comment.date}</td>
 								<td>{comment.hour}</td>
 								<td>
-									<button onClick={() => setIsShowDeleteModal(true)}>حذف</button>
+									<button
+										onClick={() => {
+											setCommentID(comment.id);
+											setIsShowDeleteModal(true);
+										}}>
+										حذف
+									</button>
 									<button>ویرایش</button>
 									<button>پاسخ</button>
 									<button>تایید</button>
