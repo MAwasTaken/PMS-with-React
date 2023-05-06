@@ -11,12 +11,14 @@ import "./Comments.css";
 import Errorbox from "../Errorbox/Errorbox";
 import DetailsModal from "../DetailsModal/DetailsModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import EditModal from "../EditModal/EditModal";
 
 // comments
 function Comments() {
 	// states
 	const [allComments, setAllComments] = useState([]);
 	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
+	const [isShowEditModal, setIsShowEditModal] = useState(false);
 	const [mainCommentBody, setMainCommentBody] = useState("");
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [commentID, setCommentID] = useState(null);
@@ -59,6 +61,14 @@ function Comments() {
 			.then((comments) => setAllComments(comments));
 	};
 
+	const closeEditModal = () => setIsShowEditModal(false);
+
+	const updateComment = () => {
+		console.log("کامنت آپدیت شد");
+
+		setIsShowEditModal(false);
+	};
+
 	// jsx
 	return (
 		<div className='cms-main'>
@@ -97,7 +107,13 @@ function Comments() {
 										}}>
 										حذف
 									</button>
-									<button>ویرایش</button>
+									<button
+										onClick={() => {
+											setIsShowEditModal(true);
+											setMainCommentBody(comment.body);
+										}}>
+										ویرایش
+									</button>
 									<button>پاسخ</button>
 									<button>تایید</button>
 								</td>
@@ -117,6 +133,11 @@ function Comments() {
 				</DetailsModal>
 			)}
 			{isShowDeleteModal && <DeleteModal cancelAction={closeDeleteModal} submitAction={deleteComment}></DeleteModal>}
+			{isShowEditModal && (
+				<EditModal onClose={closeEditModal} onSubmit={updateComment}>
+					<textarea value={mainCommentBody} onChange={(event) => setMainCommentBody(event.target.value)} />
+				</EditModal>
+			)}
 			<ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl pauseOnFocusLoss draggable pauseOnHover theme='light' />
 		</div>
 	);
