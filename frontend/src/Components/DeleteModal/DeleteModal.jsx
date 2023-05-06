@@ -10,7 +10,7 @@ import "./DeleteModal.css";
 // components
 
 // delete modal
-function DeleteModal({ submitAction, cancelAction }) {
+function DeleteModal({ submitAction, cancelAction, title }) {
 	// side effects
 	useEffect(() => {
 		const checkKey = (event) => {
@@ -26,7 +26,7 @@ function DeleteModal({ submitAction, cancelAction }) {
 	return createPortal(
 		<div className='modal-parent active'>
 			<div className='delete-modal'>
-				<h1>آیا از حذف اطمینان دارید؟</h1>
+				<h1>{title}</h1>
 				<div className='delete-modal-btns'>
 					<button className='delete-btn delete-modal-accept-btn' onClick={() => submitAction()}>
 						بله

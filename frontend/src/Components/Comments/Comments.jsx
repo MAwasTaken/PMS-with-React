@@ -19,6 +19,7 @@ function Comments() {
 	const [allComments, setAllComments] = useState([]);
 	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
+	const [isShowAcceptModal, setIsShowAcceptModal] = useState(false);
 	const [mainCommentBody, setMainCommentBody] = useState("");
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [commentID, setCommentID] = useState(null);
@@ -63,7 +64,9 @@ function Comments() {
 
 	const closeEditModal = () => setIsShowEditModal(false);
 
-	const updateComment = () => {
+	const updateComment = (event) => {
+		event.preventDefault();
+
 		fetch(`http://localhost:3000/api/comments/${commentID}`, {
 			method: "PUT",
 			headers: {
@@ -72,14 +75,19 @@ function Comments() {
 			body: JSON.stringify({
 				body: mainCommentBody,
 			}),
-		})
-			.then((res) => res.json())
-			.then((result) => {
-				console.log(result);
-				getAllcomments();
-			});
+		}).then((res) => {
+			getAllcomments();
+			showSuccessToast("کامنت با موفقیت بروزرسانی شد!");
+			setIsShowEditModal(false);
+		});
+	};
 
-		setIsShowEditModal(false);
+	const closeAcceptModal = () => setIsShowAcceptModal(false);
+
+	const acceptComment = () => {
+		console.log("کامنت تایید شد");
+
+		setIsShowAcceptModal(false);
 	};
 
 	// jsx
@@ -129,7 +137,7 @@ function Comments() {
 										ویرایش
 									</button>
 									<button>پاسخ</button>
-									<button>تایید</button>
+									<button onClick={() => setIsShowAcceptModal(true)}>تایید</button>
 								</td>
 							</tr>
 						))}
@@ -146,12 +154,13 @@ function Comments() {
 					</button>
 				</DetailsModal>
 			)}
-			{isShowDeleteModal && <DeleteModal cancelAction={closeDeleteModal} submitAction={deleteComment}></DeleteModal>}
+			{isShowDeleteModal && <DeleteModal cancelAction={closeDeleteModal} submitAction={deleteComment} title={"آیا از حذف کامنت موردنظر اطمینان دارید؟"}></DeleteModal>}
 			{isShowEditModal && (
 				<EditModal onClose={closeEditModal} onSubmit={updateComment}>
 					<textarea value={mainCommentBody} onChange={(event) => setMainCommentBody(event.target.value)} />
 				</EditModal>
 			)}
+			{isShowAcceptModal && <DeleteModal cancelAction={closeAcceptModal} submitAction={acceptComment} title={"آیا از تایید کامنت موردنظر اطمینان دارید؟"}></DeleteModal>}
 			<ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl pauseOnFocusLoss draggable pauseOnHover theme='light' />
 		</div>
 	);

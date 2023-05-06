@@ -58,11 +58,7 @@ function ProductsTable({ allProducts, getAllProducts, showSuccessToast }) {
 			});
 	};
 
-	const closeDetailsModal = () => {
-		setIsShowDetailsModal(false);
-
-		console.log("مدال جزئیات بسته شد");
-	};
+	const closeDetailsModal = () => setIsShowDetailsModal(false);
 
 	const updateProductInfos = (event) => {
 		event.preventDefault();
@@ -156,7 +152,7 @@ function ProductsTable({ allProducts, getAllProducts, showSuccessToast }) {
 			) : (
 				<Errorbox msg='هیج محصولی یافت نشد!' />
 			)}
-			{isShowDeleteModal && <DeleteModal submitAction={DeleteModalSubmitAction} cancelAction={DeleteModalCancelAction} />}
+			{isShowDeleteModal && <DeleteModal submitAction={DeleteModalSubmitAction} cancelAction={DeleteModalCancelAction} title={"آیا از حذف محصول موردنظر اطمینان دارید ؟"} />}
 			{isShowDetailsModal && (
 				<DetailsModal onHide={closeDetailsModal}>
 					<table className='cms-table'>
