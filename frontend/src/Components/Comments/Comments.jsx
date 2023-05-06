@@ -64,7 +64,20 @@ function Comments() {
 	const closeEditModal = () => setIsShowEditModal(false);
 
 	const updateComment = () => {
-		console.log("کامنت آپدیت شد");
+		fetch(`http://localhost:3000/api/comments/${commentID}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				body: mainCommentBody,
+			}),
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				console.log(result);
+				getAllcomments();
+			});
 
 		setIsShowEditModal(false);
 	};
@@ -110,6 +123,7 @@ function Comments() {
 									<button
 										onClick={() => {
 											setIsShowEditModal(true);
+											setCommentID(comment.id);
 											setMainCommentBody(comment.body);
 										}}>
 										ویرایش
