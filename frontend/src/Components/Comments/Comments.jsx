@@ -85,7 +85,14 @@ function Comments() {
 	const closeAcceptModal = () => setIsShowAcceptModal(false);
 
 	const acceptComment = () => {
-		console.log("کامنت تایید شد");
+		fetch(`http://localhost:3000/api/comments/accept/${commentID}`, {
+			method: "POST",
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				getAllcomments();
+				setIsShowAcceptModal(false);
+			});
 
 		setIsShowAcceptModal(false);
 	};
@@ -137,7 +144,15 @@ function Comments() {
 										ویرایش
 									</button>
 									<button>پاسخ</button>
-									<button onClick={() => setIsShowAcceptModal(true)}>تایید</button>
+									{comment.isAccept === 0 && (
+										<button
+											onClick={() => {
+												setIsShowAcceptModal(true);
+												setCommentID(comment.id);
+											}}>
+											تایید
+										</button>
+									)}
 								</td>
 							</tr>
 						))}
@@ -157,7 +172,7 @@ function Comments() {
 			{isShowDeleteModal && <DeleteModal cancelAction={closeDeleteModal} submitAction={deleteComment} title={"آیا از حذف کامنت موردنظر اطمینان دارید؟"}></DeleteModal>}
 			{isShowEditModal && (
 				<EditModal onClose={closeEditModal} onSubmit={updateComment}>
-					<textarea value={mainCommentBody} onChange={(event) => setMainCommentBody(event.target.value)} />
+					<textarea value={mainCommentBody} onChange={(event) => setMainCommentBody(event.target.value)} cols='40' rows='10' />
 				</EditModal>
 			)}
 			{isShowAcceptModal && <DeleteModal cancelAction={closeAcceptModal} submitAction={acceptComment} title={"آیا از تایید کامنت موردنظر اطمینان دارید؟"}></DeleteModal>}
