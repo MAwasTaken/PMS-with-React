@@ -20,6 +20,7 @@ function Comments() {
 	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
 	const [isShowAcceptModal, setIsShowAcceptModal] = useState(false);
+	const [isShowRejectModal, setIsShowRejectModal] = useState(false);
 	const [mainCommentBody, setMainCommentBody] = useState("");
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [commentID, setCommentID] = useState(null);
@@ -97,6 +98,14 @@ function Comments() {
 		setIsShowAcceptModal(false);
 	};
 
+	const closeRejectModal = () => setIsShowRejectModal(false);
+
+	const rejectComment = () => {
+		console.log("کامنت رد شد!");
+		// fetch(`http://localhost:3000/api/comments/reject/${commentID}`).then((res) => res.json()).then(result => console.log(result))
+		setIsShowRejectModal(false);
+	};
+
 	// jsx
 	return (
 		<div className='cms-main'>
@@ -144,13 +153,21 @@ function Comments() {
 										ویرایش
 									</button>
 									<button>پاسخ</button>
-									{comment.isAccept === 0 && (
+									{comment.isAccept === 0 ? (
 										<button
 											onClick={() => {
 												setIsShowAcceptModal(true);
 												setCommentID(comment.id);
 											}}>
 											تایید
+										</button>
+									) : (
+										<button
+											onClick={() => {
+												setIsShowRejectModal(true);
+												setCommentID(comment.id);
+											}}>
+											رد
 										</button>
 									)}
 								</td>
@@ -176,6 +193,7 @@ function Comments() {
 				</EditModal>
 			)}
 			{isShowAcceptModal && <DeleteModal cancelAction={closeAcceptModal} submitAction={acceptComment} title={"آیا از تایید کامنت موردنظر اطمینان دارید؟"}></DeleteModal>}
+			{isShowRejectModal && <DeleteModal cancelAction={closeRejectModal} submitAction={rejectComment} title={"آیا از رد کامنت موردنظر اطمینان دارید؟"}></DeleteModal>}
 			<ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl pauseOnFocusLoss draggable pauseOnHover theme='light' />
 		</div>
 	);
