@@ -91,6 +91,7 @@ function Comments() {
 		})
 			.then((res) => res.json())
 			.then((result) => {
+				showSuccessToast("کامنت با موفقیت تایید شد!");
 				getAllcomments();
 				setIsShowAcceptModal(false);
 			});
@@ -101,9 +102,15 @@ function Comments() {
 	const closeRejectModal = () => setIsShowRejectModal(false);
 
 	const rejectComment = () => {
-		console.log("کامنت رد شد!");
-		// fetch(`http://localhost:3000/api/comments/reject/${commentID}`).then((res) => res.json()).then(result => console.log(result))
-		setIsShowRejectModal(false);
+		fetch(`http://localhost:3000/api/comments/reject/${commentID}`, {
+			method: "POST",
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				showSuccessToast("کامنت با موفقیت رد شد!");
+				getAllcomments();
+				setIsShowRejectModal(false);
+			});
 	};
 
 	// jsx
