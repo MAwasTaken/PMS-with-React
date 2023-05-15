@@ -8,18 +8,39 @@ import "./Users.css";
 
 // components
 import Errorbox from "../Errorbox/Errorbox";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 // users
 function Users() {
 	// states
 	const [users, setUsers] = useState([]);
+	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+	const [mainUserID, setMainUserID] = useState(null);
 
 	// side effects
-	useEffect(() => {
+	useEffect(() => getAllUsers(), []);
+
+	// functions
+	const getAllUsers = () => {
 		fetch(`http://localhost:3000/api/users`)
 			.then((res) => res.json())
 			.then((users) => setUsers(users));
-	}, []);
+	};
+
+	const closeDeleteModal = () => {
+		setIsShowDeleteModal(false);
+	};
+
+	const removeUser = () => {
+		fetch(`http://localhost:3000/api/users/${mainUserID}`, {
+			method: "DELETE",
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				getAllUsers();
+				setIsShowDeleteModal(false);
+			});
+	};
 
 	return (
 		<div>
@@ -46,6 +67,17 @@ function Users() {
 									<td>{user.password}</td>
 									<td>{user.phone}</td>
 									<td>{user.email}</td>
+									<td>
+										<button
+											onClick={() => {
+												setIsShowDeleteModal(true);
+												setMainUserID(user.id);
+											}}>
+											حذف
+										</button>
+										<button>جزئیات</button>
+										<button>ویرایش</button>
+									</td>
 								</tr>
 							))}
 						</tbody>
@@ -54,6 +86,7 @@ function Users() {
 			) : (
 				<Errorbox msg='هیچ کاربری یافت نشد!' />
 			)}
+			{isShowDeleteModal && <DeleteModal title='آیا از حذف کاربر اطمینان دارید؟' cancelAction={closeDeleteModal} submitAction={removeUser} />}
 		</div>
 	);
 }
