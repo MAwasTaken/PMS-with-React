@@ -40,3 +40,8 @@
   padding: 20px;
   border-radius: 25px;
 }
+
+.cms-title {
+  font-weight: bold;
+  font-size: 2rem;
+}
