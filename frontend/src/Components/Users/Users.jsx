@@ -8,6 +8,7 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { CiLocationArrow1 } from "react-icons/ci";
+import { ToastContainer, toast } from "react-toastify";
 
 // styles
 import "./Users.css";
@@ -39,6 +40,18 @@ function Users() {
 	useEffect(() => getAllUsers(), []);
 
 	// functions
+	const showSuccessToast = (msg) =>
+		toast.success(msg, {
+			position: "top-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: "light",
+		});
+
 	const getAllUsers = () => {
 		fetch(`http://localhost:3000/api/users`)
 			.then((res) => res.json())
@@ -53,6 +66,7 @@ function Users() {
 		})
 			.then((res) => res.json())
 			.then((result) => {
+				showSuccessToast("کاربر با موفقیت حذف شد!");
 				getAllUsers();
 				setIsShowDeleteModal(false);
 			});
@@ -62,8 +76,33 @@ function Users() {
 
 	const updateUser = (event) => {
 		event.preventDefault();
-		console.log("اطلاعات کاربر مورد نظر آپذیت شد!");
-		setIsShowEditModal(false);
+
+		const userNewInfos = {
+			firsname: userNewFirstname,
+			lastname: userNewLastname,
+			username: userNewUsername,
+			password: userNewPassword,
+			phone: userNewPhone,
+			city: userNewCity,
+			email: userNewEmail,
+			address: userNewAddress,
+			score: userNewPoint,
+			buy: userNewBuy,
+		};
+
+		fetch(`http://localhost:3000/api/users/${mainUserID}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(userNewInfos),
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				showSuccessToast("کاربر با موفقیت ویرایش شد!");
+				getAllUsers();
+				setIsShowEditModal(false);
+			});
 	};
 
 	return (
@@ -103,6 +142,9 @@ function Users() {
 										<button
 											onClick={() => {
 												setIsShowEditModal(true);
+
+												setMainUserID(user.id);
+
 												setMainUserID(user.id);
 												setUserNewFirstname(user.firsname);
 												setUserNewLastname(user.lastname);
@@ -169,7 +211,7 @@ function Users() {
 						<span>
 							<CiLocationArrow1 />
 						</span>
-						<input type='text' className='edit-user-info-input' placeholder='آدرس را وارد نمایید' value={userNewAddress} onChange={(event) => setUserNewAddress(event.target.value)} />
+						<textarea type='text' className='edit-user-info-input' placeholder='آدرس را وارد نمایید' value={userNewAddress} onChange={(event) => setUserNewAddress(event.target.value)} />
 					</div>
 					<div className='edit-user-info-input-group'>
 						<span>
@@ -191,6 +233,7 @@ function Users() {
 					</div>
 				</EditModal>
 			)}
+			<ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl pauseOnFocusLoss draggable pauseOnHover theme='light' />
 		</div>
 	);
 }
