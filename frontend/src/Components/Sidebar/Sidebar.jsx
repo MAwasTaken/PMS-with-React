@@ -1,6 +1,6 @@
 // react
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 // packages
 import { AiOutlineHome } from "react-icons/ai";
@@ -16,47 +16,35 @@ import "./Sidebar.css";
 
 // sidebar
 function Sidebar() {
-  // jsx
+	// jsx
 	return (
 		<div className='sidebar'>
 			<h1 className='sidebar-title'>به داشبورد خود خوش آمدید</h1>
 			<ul className='sidebar-links'>
-				<li>
-					<Link href='#' to="/">
-						<AiOutlineHome className='icon' />
-						صفحه اصلی
-					</Link>
-				</li>
-				<li className='active'>
-					<Link href='#' to="/products">
-						<MdProductionQuantityLimits className='icon' />
-						محصولات
-					</Link>
-				</li>
-				<li>
-					<Link href='#' to="/comments">
-						<BiCommentDetail className='icon' />
-						کامنت ها
-					</Link>
-				</li>
-				<li>
-					<Link href='#' to="/users">
-						<FiUsers className='icon' />
-						کاربران
-					</Link>
-				</li>
-				<li>
-					<Link href='#' to="/orders">
-						<BsBagCheck className='icon' />
-						سفارشات
-					</Link>
-				</li>
-				<li>
-					<Link href='#' to="/offs">
-						<BiDollar className='icon' />
-						تخفیف ها
-					</Link>
-				</li>
+				<NavLink to='/'>
+					<AiOutlineHome className='icon' />
+					صفحه اصلی
+				</NavLink>
+				<NavLink to='/products'>
+					<MdProductionQuantityLimits className='icon' />
+					محصولات
+				</NavLink>
+				<NavLink to='/comments'>
+					<BiCommentDetail className='icon' />
+					کامنت ها
+				</NavLink>
+				<NavLink to='/users'>
+					<FiUsers className='icon' />
+					کاربران
+				</NavLink>
+				<NavLink to='/orders'>
+					<BsBagCheck className='icon' />
+					سفارشات
+				</NavLink>
+				<NavLink to='/offs'>
+					<BiDollar className='icon' />
+					تخفیف ها
+				</NavLink>
 			</ul>
 		</div>
 	);
