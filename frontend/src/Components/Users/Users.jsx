@@ -17,6 +17,7 @@ import "./Users.css";
 import Errorbox from "../Errorbox/Errorbox";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import EditModal from "../EditModal/EditModal";
+import DetailsModal from "../DetailsModal/DetailsModal";
 
 // users
 function Users() {
@@ -24,7 +25,9 @@ function Users() {
 	const [users, setUsers] = useState([]);
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
+	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
 	const [mainUserID, setMainUserID] = useState(null);
+	const [mainUserInfos, setMainUSerInfos] = useState({});
 	const [userNewFirstname, setUserNewFirstname] = useState("");
 	const [userNewLastname, setUserNewLastname] = useState("");
 	const [userNewUsername, setUserNewUsername] = useState("");
@@ -105,6 +108,9 @@ function Users() {
 			});
 	};
 
+	const closeDetailsModal = () => setIsShowDetailsModal(false);
+
+	// jsx
 	return (
 		<div>
 			{users.length ? (
@@ -138,7 +144,13 @@ function Users() {
 											}}>
 											حذف
 										</button>
-										<button>جزئیات</button>
+										<button
+											onClick={() => {
+												setMainUSerInfos(user);
+												setIsShowDetailsModal(true);
+											}}>
+											جزئیات
+										</button>
 										<button
 											onClick={() => {
 												setIsShowEditModal(true);
@@ -232,6 +244,28 @@ function Users() {
 						<input type='text' className='edit-user-info-input' placeholder='میزان خرید را وارد نمایید' value={userNewBuy} onChange={(event) => setUserNewBuy(event.target.value)} />
 					</div>
 				</EditModal>
+			)}
+			{isShowDetailsModal && (
+				<DetailsModal onHide={closeDetailsModal}>
+					<table className="cms-table">
+            <thead>
+              <tr>
+                <th>شهر</th>
+                <th>آدرس</th>
+                <th>امتیاز</th>
+                <th>میزان خرید</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{mainUserInfos.city}</td>
+                <td>{mainUserInfos.address}</td>
+                <td>{mainUserInfos.score}</td>
+                <td>{mainUserInfos.buy}</td>
+              </tr>
+            </tbody>
+          </table>
+				</DetailsModal>
 			)}
 			<ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl pauseOnFocusLoss draggable pauseOnHover theme='light' />
 		</div>
