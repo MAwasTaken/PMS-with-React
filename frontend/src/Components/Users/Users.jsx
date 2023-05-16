@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 // packages
-import { AiOutlinePhone, AiOutlineStar, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlinePhone, AiOutlineStar, AiOutlineShoppingCart, AiOutlineMail } from "react-icons/ai";
 import { BiRename, BiLocationPlus } from "react-icons/bi";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
@@ -24,6 +24,16 @@ function Users() {
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
 	const [mainUserID, setMainUserID] = useState(null);
+	const [userNewFirstname, setUserNewFirstname] = useState("");
+	const [userNewLastname, setUserNewLastname] = useState("");
+	const [userNewUsername, setUserNewUsername] = useState("");
+	const [userNewPassword, setUserNewPassword] = useState("");
+	const [userNewPhone, setUserNewPhone] = useState("");
+	const [userNewCity, setUserNewCity] = useState("");
+	const [userNewEmail, setUserNewEmail] = useState("");
+	const [userNewAddress, setUserNewAddress] = useState("");
+	const [userNewPoint, setUserNewPoint] = useState("");
+	const [userNewBuy, setUserNewBuy] = useState("");
 
 	// side effects
 	useEffect(() => getAllUsers(), []);
@@ -94,6 +104,16 @@ function Users() {
 											onClick={() => {
 												setIsShowEditModal(true);
 												setMainUserID(user.id);
+												setUserNewFirstname(user.firsname);
+												setUserNewLastname(user.lastname);
+												setUserNewUsername(user.username);
+												setUserNewPassword(user.password);
+												setUserNewPhone(user.phone);
+												setUserNewCity(user.city);
+												setUserNewEmail(user.email);
+												setUserNewAddress(user.address);
+												setUserNewPoint(user.score);
+												setUserNewBuy(user.buy);
 											}}>
 											ویرایش
 										</button>
@@ -113,55 +133,61 @@ function Users() {
 						<span>
 							<BiRename />
 						</span>
-						<input type='text' className='edit-user-info-input' placeholder='نام را وارد نمایید' />
+						<input type='text' className='edit-user-info-input' placeholder='نام را وارد نمایید' value={userNewFirstname} onChange={(event) => setUserNewFirstname(event.target.value)} />
 					</div>
 					<div className='edit-user-info-input-group'>
 						<span>
 							<AiOutlineUserAdd />
 						</span>
-						<input type='text' className='edit-user-info-input' placeholder='نام خانوادگی را وارد نمایید' />
+						<input type='text' className='edit-user-info-input' placeholder='نام خانوادگی را وارد نمایید' value={userNewLastname} onChange={(event) => setUserNewLastname(event.target.value)} />
 					</div>
 					<div className='edit-user-info-input-group'>
 						<span>
 							<BsPencilSquare />
 						</span>
-						<input type='text' className='edit-user-info-input' placeholder='نام کاربری را وارد نمایید' />
+						<input type='text' className='edit-user-info-input' placeholder='نام کاربری را وارد نمایید' value={userNewUsername} onChange={(event) => setUserNewUsername(event.target.value)} />
 					</div>
 					<div className='edit-user-info-input-group'>
 						<span>
 							<RiLockPasswordLine />
 						</span>
-						<input type='text' className='edit-user-info-input' placeholder='رمز عبور را وارد نمایید' />
+						<input type='text' className='edit-user-info-input' placeholder='رمز عبور را وارد نمایید' value={userNewPassword} onChange={(event) => setUserNewPassword(event.target.value)} />
 					</div>
 					<div className='edit-user-info-input-group'>
 						<span>
 							<AiOutlinePhone />
 						</span>
-						<input type='text' className='edit-user-info-input' placeholder='شماره تماس را وارد نمایید' />
+						<input type='text' className='edit-user-info-input' placeholder='شماره تماس را وارد نمایید' value={userNewPhone} onChange={(event) => setUserNewPhone(event.target.value)} />
 					</div>
 					<div className='edit-user-info-input-group'>
 						<span>
 							<BiLocationPlus />
 						</span>
-						<input type='text' className='edit-user-info-input' placeholder='محل زندگی را وارد نمایید' />
+						<input type='text' className='edit-user-info-input' placeholder='محل زندگی را وارد نمایید' value={userNewCity} onChange={(event) => setUserNewCity(event.target.value)} />
 					</div>
 					<div className='edit-user-info-input-group'>
 						<span>
 							<CiLocationArrow1 />
 						</span>
-						<input type='text' className='edit-user-info-input' placeholder='آدرس را وارد نمایید' />
+						<input type='text' className='edit-user-info-input' placeholder='آدرس را وارد نمایید' value={userNewAddress} onChange={(event) => setUserNewAddress(event.target.value)} />
+					</div>
+					<div className='edit-user-info-input-group'>
+						<span>
+							<AiOutlineMail />
+						</span>
+						<input type='text' className='edit-user-info-input' placeholder='ایمیل را وارد نمایید' value={userNewEmail} onChange={(event) => setUserNewEmail(event.target.value)} />
 					</div>
 					<div className='edit-user-info-input-group'>
 						<span>
 							<AiOutlineStar />
 						</span>
-						<input type='text' className='edit-user-info-input' placeholder='امتیاز را وارد نمایید' />
+						<input type='text' className='edit-user-info-input' placeholder='امتیاز را وارد نمایید' value={userNewPoint} onChange={(event) => setUserNewPoint(event.target.value)} />
 					</div>
 					<div className='edit-user-info-input-group'>
 						<span>
 							<AiOutlineShoppingCart />
 						</span>
-						<input type='text' className='edit-user-info-input' placeholder='میزان خرید را وارد نمایید' />
+						<input type='text' className='edit-user-info-input' placeholder='میزان خرید را وارد نمایید' value={userNewBuy} onChange={(event) => setUserNewBuy(event.target.value)} />
 					</div>
 				</EditModal>
 			)}
